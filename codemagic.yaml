@@ -1,0 +1,14 @@
+workflows:
+  build-trollcity:
+    name: Build Troll City
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+    scripts:
+      - echo "Fetching Flutter dependencies..."
+      - flutter pub get
+      - echo "Building release APK..."
+      - flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
