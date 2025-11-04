@@ -1,14 +1,22 @@
 workflows:
-  build-trollcity:
+  trollcity_build:
     name: Build Troll City
     max_build_duration: 60
-    instance_type: mac_mini_m2
+    instance_type: mac_mini_m1
     environment:
       flutter: stable
+      xcode: latest
+      vars:
+        PACKAGE_NAME: "trollcity_base44"
     scripts:
-      - echo "Fetching Flutter dependencies..."
-      - flutter pub get
-      - echo "Building release APK..."
-      - flutter build apk --release
+      - name: Get Flutter dependencies
+        script: |
+          cd $CM_BUILD_DIR
+          flutter pub get
+      - name: Build APK
+        script: |
+          cd $CM_BUILD_DIR
+          flutter build apk --release
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
+
